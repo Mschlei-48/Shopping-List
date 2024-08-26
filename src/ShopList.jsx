@@ -11,24 +11,41 @@ function ShopList(){
     const [search,setSearch]=useState("")
     const [edit,setEdit]=useState(false)
     const [editID,setEditID]=useState(0)
+    const [sort,setSort]=useState("")
 
     const [name,setName]=useState("")
-    const [category,setCategory]=useState("")
+    const [category,setCategory]=useState("All")
     const [size,setSize]=useState("")
     const [quantity,setQuantity]=useState(0)
 
 
 
     useEffect(()=>{
-        handleSearch()
-    },[search,shopList])
+        // if(search===""){
+        //     setData(shopList.tasks)
+        // }
+        handleCategories()
+
+    })
 
 
-    const handleSearch=(()=>{
-        if(search===""){
+    const handleCategories=(()=>{
+        if(category==="All"){
             setData(shopList.tasks)
         }
-        else if(search!==""){
+        else if(category==="Carbs"){
+            setData(shopList.tasks.filter((item)=>item.category==category))
+        }
+        else if(category==="Vegetables"){
+            setData(shopList.tasks.filter((item)=>item.category==category))
+        }
+        else if(category==="Dairy"){
+            setData(shopList.tasks.filter((item)=>item.category==category))
+        }
+        else if(category==="Poultry"){
+            setData(shopList.tasks.filter((item)=>item.category==category))
+        }
+        if(search!==""){
             setData(shopList.tasks.slice(1,).filter((item)=>(item.shopItem.toLowerCase()).includes((search.toLowerCase()))))
         }
     })
@@ -50,12 +67,13 @@ function ShopList(){
             <br></br>
             <input placeholder="Enter Size" type="text" onChange={(event)=>setSize(event.target.value)}></input>
             <br></br>
-            <label for="cars">Choose a category:</label>
+            <label for="cegories">Choose a category:</label>
             <select name="categories" id="categories-selector" onChange={(event)=>setCategory(event.target.value)}>
-                <option value="cereals">Cereals</option>
-                <option value="carbs">Carbs</option>
-                <option value="poultry">Poultry</option>
-                <option value="dairy">Dairy</option>
+                <option value="Cereals">Cereals</option>
+                <option value="Carbs">Carbs</option>
+                <option value="Poultry">Poultry</option>
+                <option value="Dairy">Dairy</option>
+                <option value="Vegetables">Vegetables</option>
             </select>
             <br></br>
             <button onClick={()=>handleAdd()}>Add Item</button>
@@ -63,14 +81,30 @@ function ShopList(){
         <h1>Shopping List</h1>
         <input placeholder="Search..." onChange={(event)=>setSearch(event.target.value)}></input>
         <br></br>
-        <button>All</button>
-        <button>Carbs</button>
-        <button>Dairy</button>
-        <button>Poultry</button>
+        <button onClick={()=>setCategory("All")}>All</button>
+        <button onClick={()=>setCategory("Carbs")}>Carbs</button>
+        <button onClick={()=>setCategory("Dairy")}>Dairy</button>
+        <button onClick={()=>setCategory("Poultry")}>Poultry</button>
+        <button onClick={()=>setCategory("Vegetables")}>Vegetables</button>
         {edit===true?(
             <>
-            <input placeholder="Enter Item" onChange={(event)=>dispatch(editList({id:editID,newItem:event.target.value}))}></input>
-            <button onClick={()=>setEdit(false)}>Save</button>
+            {/* <input placeholder="Enter Item" onChange={(event)=>dispatch(editList({id:editID,newItem:event.target.value}))}></input> */}
+            <input placeholder="Enter Item Name" onChange={(event)=>setName(event.target.value)}></input>
+            <br></br>
+            <label for="cars">Choose a category:</label>
+            <select name="categories" id="categories-selector" onChange={(event)=>setCategory(event.target.value)}>
+                <option value="Cereals">Cereals</option>
+                <option value="Carbs">Carbs</option>
+                <option value="Poultry">Poultry</option>
+                <option value="Dairy">Dairy</option>
+                <option value="Vegetables">Vegetables</option>
+            </select>
+            <br></br>
+            <input placeholder="Enter Size" type="text" onChange={(event)=>setSize(event.target.value)}></input>
+            <br></br>
+            <input placeholder="Enter Quantity" type="number" onChange={(event)=>setQuantity(event.target.value)}></input>
+            <br></br>
+            <button onClick={()=>{setEdit(false);dispatch(editList({id:editID,newItem:name,size:size,category:category,quantity:quantity}))}}>Save</button>
         </>
     ):(
         data.map((item)=>(

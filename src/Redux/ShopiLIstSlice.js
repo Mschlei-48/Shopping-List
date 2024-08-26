@@ -15,10 +15,13 @@ const shopListSlice=createSlice({
             state.tasks= state.tasks.filter((task)=>task.id!==action.payload);
         },
         editList:(state,action)=>{
-            const {id,newItem}=action.payload
+            const {id,newItem,category,size,quantity}=action.payload
             const task=state.tasks.find(((task)=>task.id==id));
             if(task){
                 task.shopItem=newItem;
+                task.size=size;
+                task.category=category;
+                task.quantity=quantity
             }
         }
             },

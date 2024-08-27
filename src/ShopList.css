@@ -1,0 +1,82 @@
+.form-content{
+    margin-top:40px;
+    border:2px solid black;
+    height:500px;
+}
+.form-input{
+    padding:15px;
+    width:250px;
+    margin-top:30px;
+    border-radius:10px;
+    border:2px solid orange;
+}
+.edit-input{
+    margin-top:37px;
+    width:250px;
+    padding:15px;
+    border-radius: 10px;
+    border:2px solid orange;
+}
+.edit-label{
+    font-weight:bold;
+}
+.label{
+    font-weight:bold;
+}
+.category-div{
+    margin-top:50px;
+    padding:15px;
+}
+.category-button{
+
+}
+.search{
+    width:300px;
+    height:40px;
+    border-radius:10px;
+    border:1px solid; 
+}
+.table{
+    margin-top:20px;
+    padding:2px;
+}
+thead{
+    background-color:orange;
+}
+tbody{
+    background-color:rgb(219, 215, 215);
+}
+.edit-button{
+    background-color: transparent;
+}
+.delete-button{
+    background-color: transparent;
+}
+.delete-button:hover{
+    background-color: orange;
+    border:2px solid white;
+}
+.edit-button:hover{
+    background-color:orange;
+    border:2px solid white;
+}
+.addButton{
+    margin-top:45px;
+    font-weight:bold;
+    background-color: orange;
+    width:270px;
+}
+.category-button{
+    background-color: black;
+    color:white;
+}
+.category-button:focus{
+    background-color:white;
+    color:black;
+}
+.categories-selector{
+    margin-top:35px;
+    width:105px;
+    height:35px;
+    font-weight:bold;
+}

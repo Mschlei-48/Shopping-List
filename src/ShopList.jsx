@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import { useSelector,useDispatch } from 'react-redux';
 import { removeList,editList, addList } from './Redux/ShopiLIstSlice.js';
-
+import './ShopList.css'
 
 function ShopList(){
     const shopList =useSelector(state=>state.shop);
@@ -15,15 +15,13 @@ function ShopList(){
 
     const [name,setName]=useState("")
     const [category,setCategory]=useState("All")
+    const [itemCategory,setItemCategory]=useState("")
     const [size,setSize]=useState("")
     const [quantity,setQuantity]=useState(0)
 
 
 
     useEffect(()=>{
-        // if(search===""){
-        //     setData(shopList.tasks)
-        // }
         handleCategories()
 
     })
@@ -52,23 +50,22 @@ function ShopList(){
 
     const handleAdd=(()=>{
 
-        dispatch(addList({shopItem:name,id:Date.now(),category:category,size:size,quantity:quantity}))
+        dispatch(addList({shopItem:name,id:Date.now(),category:itemCategory,size:size,quantity:quantity}))
     })
 
 
-
-    console.log("Data:",data)
     return(
-        <div>
+        <div className="main-content">
         <div className="form-content">
-            <input placeholder="Enter Item Name" onChange={(event)=>setName(event.target.value)}></input>
+            <h3>Enter Shopping List Items</h3>
+            <input placeholder="Enter Item Name" className="form-input" onChange={(event)=>setName(event.target.value)}></input>
             <br></br>
-            <input placeholder="Enter Quantity" type="number" onChange={(event)=>setQuantity(event.target.value)}></input>
+            <input placeholder="Enter Quantity" className="form-input" type="number" onChange={(event)=>setQuantity(event.target.value)}></input>
             <br></br>
-            <input placeholder="Enter Size" type="text" onChange={(event)=>setSize(event.target.value)}></input>
+            <input placeholder="Enter Size" className="form-input" type="text" onChange={(event)=>setSize(event.target.value)}></input>
             <br></br>
-            <label for="cegories">Choose a category:</label>
-            <select name="categories" id="categories-selector" onChange={(event)=>setCategory(event.target.value)}>
+            <label for="cegories" className="label">Choose a category:  </label>
+            <select name="categories" className="categories-selector" onChange={(event)=>setItemCategory(event.target.value)}>
                 <option value="Cereals">Cereals</option>
                 <option value="Carbs">Carbs</option>
                 <option value="Poultry">Poultry</option>
@@ -76,23 +73,28 @@ function ShopList(){
                 <option value="Vegetables">Vegetables</option>
             </select>
             <br></br>
-            <button onClick={()=>handleAdd()}>Add Item</button>
+            <button onClick={()=>handleAdd()} className="addButton">Add Item</button>
         </div>
-        <h1>Shopping List</h1>
-        <input placeholder="Search..." onChange={(event)=>setSearch(event.target.value)}></input>
+        <h3>Shopping List</h3>
+        <input placeholder="Search..." className="search" onChange={(event)=>setSearch(event.target.value)}></input>
         <br></br>
-        <button onClick={()=>setCategory("All")}>All</button>
-        <button onClick={()=>setCategory("Carbs")}>Carbs</button>
-        <button onClick={()=>setCategory("Dairy")}>Dairy</button>
-        <button onClick={()=>setCategory("Poultry")}>Poultry</button>
-        <button onClick={()=>setCategory("Vegetables")}>Vegetables</button>
+        <div className="category-div">
+            <button className="category-button" id="all-button" onClick={()=>setCategory("All")}>All</button>
+            <button className="category-button" id="carbs-button" onClick={()=>setCategory("Carbs")}>Carbs</button>
+            <button className="category-button" id="diary-button" onClick={()=>setCategory("Dairy")}>Dairy</button>
+            <button className="category-button" id="poultry-button" onClick={()=>setCategory("Poultry")}>Poultry</button>
+            <button className="category-button" id="vegetable-button" onClick={()=>setCategory("Vegetables")}>Vegetables</button>
+        </div>
         {edit===true?(
             <>
-            {/* <input placeholder="Enter Item" onChange={(event)=>dispatch(editList({id:editID,newItem:event.target.value}))}></input> */}
-            <input placeholder="Enter Item Name" onChange={(event)=>setName(event.target.value)}></input>
+            <input className="edit-input" placeholder="Enter Item Name" onChange={(event)=>setName(event.target.value)}></input>
             <br></br>
-            <label for="cars">Choose a category:</label>
-            <select name="categories" id="categories-selector" onChange={(event)=>setCategory(event.target.value)}>
+            <input className="edit-input" placeholder="Enter Size" type="text" onChange={(event)=>setSize(event.target.value)}></input>
+            <br></br>
+            <input className="edit-input" placeholder="Enter Quantity" type="number" onChange={(event)=>setQuantity(event.target.value)}></input>
+            <br></br>
+            <label className="edit-label" for="categories">Choose a category:  </label>
+            <select name="categories" className="categories-selector" onChange={(event)=>setItemCategory(event.target.value)}>
                 <option value="Cereals">Cereals</option>
                 <option value="Carbs">Carbs</option>
                 <option value="Poultry">Poultry</option>
@@ -100,45 +102,36 @@ function ShopList(){
                 <option value="Vegetables">Vegetables</option>
             </select>
             <br></br>
-            <input placeholder="Enter Size" type="text" onChange={(event)=>setSize(event.target.value)}></input>
-            <br></br>
-            <input placeholder="Enter Quantity" type="number" onChange={(event)=>setQuantity(event.target.value)}></input>
-            <br></br>
-            <button onClick={()=>{setEdit(false);dispatch(editList({id:editID,newItem:name,size:size,category:category,quantity:quantity}))}}>Save</button>
+            <button onClick={()=>{setEdit(false);dispatch(editList({id:editID,newItem:name,size:size,category:itemCategory,quantity:quantity}))}}>Save</button>
+            <button onClick={()=>setEdit(false)}>Cancel</button>
         </>
     ):(
-        data.map((item)=>(
-            <div key={item.id}>
-                <table>
-                    <tr>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Size</th>
-                        <th>Quantity</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                    <tr>
-                        <td>{item.shopItem}</td>
-                        <td>{item.category}</td>
-                        <td>{item.size}</td>
-                        <td>{item.quantity}</td>
-                        <td><button onClick={()=>{setEdit(true);setEditID(item.id)}}>Edit</button></td>
-                        <td><button onClick={()=>dispatch(removeList(item.id))}>Delete</button></td>
-                    </tr>
-                </table>
-                {/* <span>{item.shopItem}</span>
-                <span>   </span>
-                <span>   </span>
-                <span>   </span>
-                <span>{item.category}</span> */}
-                {/* <button onClick={()=>{setEdit(true);setEditID(item.id)}}>Edit</button>
-                <button onClick={()=>dispatch(removeList(item.id))}>Delete</button> */}
-                {/* <button style={{position:"fixed",bottom:"30px",right:"30px"}}>Add more items+</button> */}
-                </div>
-            ))
-    )}
-
+        <table className="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Size</th>
+            <th>Quantity</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item) => (
+            <tr key={item.id}>
+              <td>{item.shopItem}</td>
+              <td>{item.category}</td>
+              <td>{item.size}</td>
+              <td>{item.quantity}</td>
+              <td><button className="edit-button" onClick={() => { setEdit(true); setEditID(item.id); }}>Edit</button></td>
+              <td><button className="delete-button" onClick={() => dispatch(removeList(item.id))}>Delete</button></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+            )
+    }
     </div>
     )
 }

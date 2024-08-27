@@ -48,21 +48,34 @@ function ShopList(){
         }
     })
 
-    const handleAdd=(()=>{
 
-        dispatch(addList({shopItem:name,id:Date.now(),category:itemCategory,size:size,quantity:quantity}))
+
+    const handleAdd=(()=>{
+        if(name!=="" && itemCategory!=="" && size!=="" && quantity!==0 && quantity!==""){
+            dispatch(addList({shopItem:name,id:Date.now(),category:itemCategory,size:size,quantity:quantity}))
+        }
+        else{
+            alert("Please enter the required fields")
+        }
+        
     })
 
-
+    const handleEdit=(()=>{
+        if(name!=="" && itemCategory!=="" && size!=="" && quantity!==0 && quantity!==""){
+            dispatch(editList({id:editID,newItem:name,size:size,category:itemCategory,quantity:quantity}))
+            setEdit(false)
+        }
+        else{
+            alert("Please enter the required fields")
+        } 
+    })
     return(
         <div className="main-content">
         <div className="form-content">
             <h3>Enter Shopping List Items</h3>
             <input placeholder="Enter Item Name" className="form-input" onChange={(event)=>setName(event.target.value)}></input>
-            <br></br>
             <input placeholder="Enter Quantity" className="form-input" type="number" onChange={(event)=>setQuantity(event.target.value)}></input>
-            <br></br>
-            <input placeholder="Enter Size" className="form-input" type="text" onChange={(event)=>setSize(event.target.value)}></input>
+            <input placeholder="Enter Size" style={{marginRight:"359px"}} className="form-input" type="text" onChange={(event)=>setSize(event.target.value)}></input>
             <br></br>
             <label for="cegories" className="label">Choose a category:  </label>
             <select name="categories" className="categories-selector" onChange={(event)=>setItemCategory(event.target.value)}>
@@ -102,7 +115,7 @@ function ShopList(){
                 <option value="Vegetables">Vegetables</option>
             </select>
             <br></br>
-            <button onClick={()=>{setEdit(false);dispatch(editList({id:editID,newItem:name,size:size,category:itemCategory,quantity:quantity}))}}>Save</button>
+            <button onClick={()=>handleEdit()}>Save</button>
             <button onClick={()=>setEdit(false)}>Cancel</button>
         </>
     ):(
@@ -124,7 +137,7 @@ function ShopList(){
               <td>{item.category}</td>
               <td>{item.size}</td>
               <td>{item.quantity}</td>
-              <td><button className="edit-button" onClick={() => { setEdit(true); setEditID(item.id); }}>Edit</button></td>
+              <td><button className="edit-button" onClick={() => { setEdit(true); setEditID(item.id)}}>Edit</button></td>
               <td><button className="delete-button" onClick={() => dispatch(removeList(item.id))}>Delete</button></td>
             </tr>
           ))}

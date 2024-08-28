@@ -41,14 +41,12 @@ function Login(){
     return(
         <div className="login-container">
         <h1>Login</h1>
-        <input className="login-input" placeholder="Enter Username" onChange={(event)=>setUsername(event.target.value)}></input>
+        <input className="login-input" placeholder="Enter Username" type="email" onChange={(event)=>setUsername(event.target.value)}></input>
         <input className="login-input" placeholder="Enter Password" onChange={(event)=>setPassword(event.target.value)}></input>
         <br></br>
         <button className="login-button" onClick={()=>handleLogin()}>Login</button>
         <p>Not a member? Click here to <a onClick={()=>navigate("/register")} style={{cursor:"pointer"}}>Register</a></p>
-
         </div>
     )
 }
-
 export default Login;

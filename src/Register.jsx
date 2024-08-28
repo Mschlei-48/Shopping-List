@@ -5,7 +5,6 @@ import {useNavigate} from 'react-router-dom'
 import './register.css'
 
 
-
 function Register(){
     const userList=useSelector((state)=>state.credential.users)
     const [username,setUsername]=useState("")
@@ -38,7 +37,7 @@ function Register(){
     return(
         <div className="register-container">
         <h1>Register Page</h1>
-        <input className="register-input" placeholder="Enter username" onChange={(event)=>setUsername(event.target.value)}></input>
+        <input className="register-input" placeholder="Enter username" type="email" onChange={(event)=>setUsername(event.target.value)}></input>
         <input className="register-input"placeholder="Enter password" onChange={(event)=>setPassword(event.target.value)}></input>
         <button className="register-button" onClick={()=>handleUserReg()}>Register</button>
         <p>Already a member? Click here to <a onClick={()=>navigate("/")} style={{cursor:"pointer"}}>Login</a></p>

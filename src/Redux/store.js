@@ -1,9 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import shopReducer from './ShopiLIstSlice'
+import {rootReducer} from './slices/index'
 
 const store=configureStore({
-    reducer:{
-        shop:shopReducer,
-    }
+    reducer:rootReducer,
 })
 export default store;

@@ -27,8 +27,10 @@ const shopListSlice=createSlice({
             },
 })
 
-export const{addList,removeList,editList}=shopListSlice.actions;
 export default shopListSlice.reducer
+export const{addList,removeList,editList}=shopListSlice.actions;
+// export default shopListSlice
+
 
 
 

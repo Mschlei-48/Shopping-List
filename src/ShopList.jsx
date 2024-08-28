@@ -1,7 +1,8 @@
 import {useEffect, useState} from 'react'
 import { useSelector,useDispatch } from 'react-redux';
-import { removeList,editList, addList } from './Redux/ShopiLIstSlice.js';
+import { removeList,editList, addList } from './Redux/shop/ShopiLIstSlice.js';
 import './ShopList.css'
+import {useNavigate} from 'react-router-dom'
 
 function ShopList(){
     const shopList =useSelector(state=>state.shop);
@@ -13,6 +14,7 @@ function ShopList(){
     const [editID,setEditID]=useState(0)
     const [sort,setSort]=useState("")
 
+    const navigate=useNavigate()
     const [name,setName]=useState("")
     const [category,setCategory]=useState("All")
     const [itemCategory,setItemCategory]=useState("")
@@ -71,6 +73,7 @@ function ShopList(){
     })
     return(
         <div className="main-content">
+            <button style={{marginLeft:"900px",backgroundColor:"orange"}} onClick={()=>{navigate("/");localStorage.removeItem("token")}}>Logout</button>
         <div className="form-content">
             <h3>Enter Shopping List Items</h3>
             <input placeholder="Enter Item Name" className="form-input" onChange={(event)=>setName(event.target.value)}></input>
